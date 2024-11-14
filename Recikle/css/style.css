@@ -1,0 +1,172 @@
+/* визуализация блоков удалить */
+
+* {
+	/* outline: 1px solid #DE0C35; */
+	/* border: 1px solid red; */
+}
+
+/* обнуление стилей */
+
+body {
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+	margin: 0;
+	padding: 0;
+	border: none;
+	/* display: inline-block; */
+	font-size: 0; 
+	width: 100%;
+}
+
+a, a:visited {
+    /* color: inherit; */
+    text-decoration: none;
+	color: var(--mein-black);
+	display: inline-block;
+}
+
+ul, ul, li {
+	list-style: none;
+	padding: 0;
+}
+
+button {
+	padding: 0;
+	outline: 1px solid var(--darkgrey);
+	border: none; 
+}
+
+input {
+	padding: 0;
+	/* outline: 1px solid var(--darkgrey); */
+	border: none; 
+}
+
+span, p {
+	font-size: 14px;
+}
+
+h1, h2, h3 {
+	font-size: 30px;
+}
+
+/* color thema */
+:root{
+	--red: #DE0C35;
+	--white: #F3ECEE;
+	--blue: #1D96D1;
+	--green: #6F9031;
+	--lightgrey: #dedada;
+	--grey:#CDC5C5;
+	--darkgrey: #847477;
+	--black:#321F22;
+
+	/* --experimental: #333333; 
+	--experimental2: #2F2F2F;
+	--experimental3: #F5F5F5;
+	--experimental4: #FAFAFA;
+	--experimental5: #E5E5E5;
+	--experimental6: #999999; */
+
+
+	--main-red:var(--red);
+	--main-white:var(--white);
+	--mein-blue:var(--blue);
+	--main-green:var(--green);
+	--main-grey:var(--lightgrey);
+	--active-menu:var(--grey);
+	--lines-grey:var(--darkgrey);
+	--mein-black:var(--black);
+}
+
+/* input */
+
+.calc-conteiner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: 1px solid var(--darkgrey);
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.form-container {
+}
+
+.main-form {
+	outline: 1px solid var(--darkgrey);
+	border-radius: 5px;
+	width: 50vw;
+	margin-bottom: 5px;
+	/* height: 10vh; */
+	
+}
+.inner-input {
+	width: 100%;
+	font-size: 6vh;
+}
+.history-input {
+	width: 100%;
+	height: 4vh;
+	background-color: var(--lightgrey);
+}
+.button-block {
+	display: flex;
+	flex-direction: column;
+}
+
+.memory-buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+.control-matematics-buttons{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.control-numers-buttons{
+	width: 30vw;
+	/* height: 25vh; */
+}
+
+.control-buttons{
+
+}
+
+.numbers {
+
+}
+.arifmetich-simbols {
+	width: 20vw;
+	/* height: 25vh; */
+
+}
+
+.button-wraper{
+	overflow: hidden;
+	display: inline-block;
+}
+
+.buttons-design {
+	border-radius: 5px;
+	margin: 0.2vw;
+	width: 9.6vw;
+	height: 4.6vh;
+	font-size: 1rem;
+	transition: background-color 0.2s ease, transform 0.2s ease; 
+}
+
+.buttons-design:hover {
+    background-color: var(--lightgrey);
+    transform: scale(1.01); 
+	font-size: 1.2rem;
+}
+
+.buttons-design:active {
+    background-color: var(--darkgrey);
+    transform: scale(0.9);
+	font-size: 0.9rem; 
+}

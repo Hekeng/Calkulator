@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+    <title>Calc_0.1</title>
+  </head>
+  <body>
+    <div class="calc-conteiner">
+      <div class="form-container">
+        <form class="main-form" id="main-form" action="#" method="post">
+          <label for="inner-input">Inner</label>
+          <input
+            type="text"
+            class="inner-input"
+            id="inner-input"
+            name="inner-input"
+            placeholder="0"
+            autofocus
+            value=""
+            required
+          />
+
+          <label for="history-input">history</label>
+          <input
+            type="text"
+            class="history-input"
+            id="history-input"
+            name="history-input"
+            disabled
+          />
+        </form>
+      </div>
+
+      <div class="button-block">
+        <div class="memory-buttons">
+          <div class="button-wraper">
+            <button type="button" class="buttons-design" data-value="MC">
+              MC
+            </button>
+          </div>
+          <div class="button-wraper">
+            <button type="button" class="buttons-design" data-value="MR">
+              MR
+            </button>
+          </div>
+          <div class="button-wraper">
+            <button type="button" class="buttons-design" data-value="MS">
+              MS
+            </button>
+          </div>
+          <div class="button-wraper">
+            <button type="button" class="buttons-design" data-value="M+">
+              M+
+            </button>
+          </div>
+          <div class="button-wraper">
+            <button type="button" class="buttons-design" data-value="M-">
+              M-
+            </button>
+          </div>
+        </div>
+        <div class="control-matematics-buttons">
+          <div class="control-numers-buttons">
+            <div class="control-buttons">
+              <div class="button-wraper">
+                <button
+                  type="button"
+                  class="buttons-design"
+                  data-value="&larr;"
+                >
+                  &larr;
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="CE">
+                  CE
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="С">
+                  C
+                </button>
+              </div>
+            </div>
+
+            <div class="numbers" id="numers">
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="1">
+                  1
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="2">
+                  2
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="3">
+                  3
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="4">
+                  4
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="5">
+                  5
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="6">
+                  6
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="7">
+                  7
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="8">
+                  8
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="9">
+                  9
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value="0">
+                  0
+                </button>
+              </div>
+              <div class="button-wraper">
+                <button type="button" class="buttons-design" data-value=",">
+                  ,
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="arifmetich-simbols" id="arifmetich-simbols">
+            <div class="button-wraper">
+              <button type="button" class="buttons-design" data-value="&radic;">
+                &radic;
+              </button>
+            </div>
+            <div class="button-wraper">
+              <button type="button" class="buttons-design" data-value="-">
+                -
+              </button>
+            </div>
+            <div class="button-wraper">
+              <button type="button" class="buttons-design" data-value="+">
+                +
+              </button>
+            </div>
+            <div class="button-wraper">
+              <button type="button" class="buttons-design" data-value="*">
+                *
+              </button>
+            </div>
+            <div class="button-wraper">
+              <button type="button" class="buttons-design" data-value="/">
+                /
+              </button>
+            </div>
+            <div class="button-wraper">
+              <button type="button" class="buttons-design" data-value="=">
+                =
+              </button>
+            </div>
+            <div class="button-wraper">
+              <button type="button" class="buttons-design" data-value="%">
+                %
+              </button>
+            </div>
+            <div class="button-wraper">
+              <button
+                type="button"
+                class="buttons-design"
+                data-value="&plusmn;"
+              >
+                &plusmn;
+              </button>
+            </div>
+            <div class="button-wraper">
+              <button type="button" class="buttons-design" data-value="">
+                1
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./Js/script.js"></script>
+  </body>
+</html>
