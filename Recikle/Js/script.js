@@ -23,51 +23,81 @@ const arithmeticSymbols = ['±', '+', '-', '*', '/', '=', ','];
 // const noTypingValues = ['Null', '%', 'Enter', 'Delete', 'Backspace', 'ArrowLeft', 'ArrowRight', 'F5', 'F12', 'Tab' , 'CE', 'C', 'MC', 'MR', 'MS', 'M+', 'M-', '√', '±', '%']
 
 
-//запуск работы: 
+// Запуск работы:
+document.addEventListener('mousedown', funcEvent);
+document.addEventListener('keydown', funcEvent);
+document.addEventListener('paste', funcEvent);
+document.addEventListener('DOMContentLoaded', focusInputField);
 
-	document.addEventListener('mousedown', funcEvent);
-	document.addEventListener('keydown', funcEvent);
-	document.addEventListener('paste', funcEvent);
+// Функция для установки фокуса и перемещения курсора в конец ввода
+function focusInputField() {
+    var inputField = document.getElementById('inner-input');
+    if (inputField) {
+        inputField.focus(); // Устанавливаем фокус на элемент
+        inputField.setSelectionRange(inputField.value.length, inputField.value.length); // Перемещаем курсор в конец
+    }
+}
 
-	// document.addEventListener('dragstart', funcEvent);
+// document.addEventListener('dragstart', funcEvent);
 
-	function funcEvent(event) {
-		// Проверка на комбинации Ctrl+C, Ctrl+V, Ctrl+X
-		if (event.ctrlKey && (event.code === 'KeyC' || event.code === 'KeyX' || event.code === 'KeyV')) // Для этих комбинаций клавиш не предпринимаем никаких действий, чтобы браузер выполнил стандартное поведение 
-		{
-			
-			return;
-		}  
-		else if (event.type === 'paste') {
-			eventData = handleEvent(event); // Обновляем eventData
-			normalize(event);
-			outputСhanges(eventData);
-		}
-
-		// Если событие произошло на элементе input и это нажатие клавиши
-		if (event.target.tagName === 'INPUT' && event.type === 'keydown') {
-			eventData = handleEvent(event); // записываем событие в глобальную переменную
-			normalize(event); // сортируем ввод
-			arithmetic(event, eventData, arithmeticSymbols);
-			outputСhanges(eventData);
-		} 
-		// Если событие произошло на элементе button и это mousedown
-		else if (event.target.tagName === 'BUTTON' && event.type === 'mousedown') {
-			eventData = handleEvent(event); // записываем событие в глобальную переменную
-			normalize(event); // сортируем ввод
-			arithmetic(event, eventData, arithmeticSymbols);
-			outputСhanges(eventData);
-		}
-		
-		checkEvent(); // просмотр содержимого элементов 
+function funcEvent(event) {
+	// Проверка на комбинации Ctrl+C, Ctrl+V, Ctrl+X
+	if (event.ctrlKey && (event.code === 'KeyC' || event.code === 'KeyX' || event.code === 'KeyV')) {
+		return; // Для этих комбинаций клавиш не предпринимаем никаких действий
 	}
+
+	if (event.type === 'paste') {
+		eventData = handleEvent(event); // Обновляем eventData
+		normalize(event);
+		outputСhanges(eventData);
+	}
+
+	if (event.type === 'mousedown') {
+		handleClickOutside(event); // Проверяем клик за пределами калькулятора
+	}
+
+	// Если событие произошло на элементе input и это нажатие клавиши
+	if (event.target.tagName === 'INPUT' && event.type === 'keydown') {
+		eventData = handleEvent(event); // Записываем событие в глобальную переменную
+		normalize(event); // Сортируем ввод
+		arithmetic(event, eventData, arithmeticSymbols);
+		outputСhanges(eventData);
+	}
+
+	// Если событие произошло на элементе button и это mousedown
+	if (event.target.tagName === 'BUTTON' && event.type === 'mousedown') {
+		eventData = handleEvent(event); // Записываем событие в глобальную переменную
+		normalize(event); // Сортируем ввод
+		arithmetic(event, eventData, arithmeticSymbols);
+		outputСhanges(eventData);
+	}
+
+	checkEvent(); // Просмотр содержимого элементов
+}
 
 function checkEvent(){
 
-	console.log('Event data:', eventData); // проверяем состояния нашей перееменной при каждом событии
+
+	console.log('Event data:', eventData, 'Input field:', inputField, 'Input value:', inputValue); // проверяем состояния нашей перееменной при каждом событии
 
 
 }
+
+//функция для обработки кликов за пределами "calc-conteiner"
+function handleClickOutside(event) {
+    let calcContainer = document.querySelector('.calc-conteiner');
+    let inputField = document.getElementById('inner-input');
+
+    // Проверяем, был ли клик вне контейнера
+    if (calcContainer && !calcContainer.contains(event.target)) {
+        if (inputField) {
+            inputField.focus(); // Устанавливаем фокус на input
+            inputField.setSelectionRange(inputField.value.length, inputField.value.length); // Перемещаем курсор в конец
+        }
+    }
+}
+
+
 
 // после первого изменения состояния задаем значение переменной eventData :
 
