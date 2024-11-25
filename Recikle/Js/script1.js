@@ -23,14 +23,16 @@ const arithmeticSymbols = ['±', '+', '-', '*', '/', '=', ','];
 
 
 // Запуск работы:
+document.addEventListener('DOMContentLoaded', focusInputField);
+
 document.addEventListener('mousedown', funcEvent);
 document.addEventListener('keydown', funcEvent);
 document.addEventListener('paste', funcEvent);
-document.addEventListener('DOMContentLoaded', focusInputField);
+
 
 // Функция для установки фокуса и перемещения курсора в конец ввода
 function focusInputField() {
-    var inputField = document.getElementById('inner-input');
+   
     if (inputField) {
         inputField.focus(); // Устанавливаем фокус на элемент
         inputField.setSelectionRange(inputField.value.length, inputField.value.length); // Перемещаем курсор в конец
@@ -78,25 +80,42 @@ function checkEvent(){
 
 
 	//console.log('Event data:', eventData, 'Input field:', inputField, 'Input value:', inputValue); // проверяем состояния нашей перееменной при каждом событии
-	console.log(`inputField:`, inputField)
+	//console.log(`inputField:`, inputField)
 
 }
 
-//функция для обработки кликов за пределами "calc-conteiner"
+// Функция для обработки кликов за пределами "calc-conteiner"
 function handleClickOutside(event) {
     let calcContainer = document.querySelector('.calc-conteiner');
-    let inputField = document.getElementById('inner-input');
+
+    // Перезапись состояния inputField
+    inputField = document.getElementById('inner-input');
+
+    if (!inputField) {
+        console.error('Input field not found!');
+        return;
+    }
 
     // Проверяем, был ли клик вне контейнера
     if (calcContainer && !calcContainer.contains(event.target)) {
-        if (inputField) {
-            inputField.focus(); // Устанавливаем фокус на input
+        console.log('Clicked outside of calc-container'); // Лог клика вне контейнера
+
+        // Устанавливаем курсор в конец строки
+        setTimeout(function () {
             inputField.setSelectionRange(inputField.value.length, inputField.value.length); // Перемещаем курсор в конец
-        }
+            console.log('Cursor set to position:', inputField.selectionStart, inputField.selectionEnd);
+
+            // Переносим фокус на поле ввода
+            inputField.focus(); 
+            console.log('Input field focused');
+        }, 0); // Отложенное выполнение
     }
 
-	console.log('calcContainer:', calcContainer, `inputField:`, inputField)
-
+    // Логируем, если фокус теряется
+    inputField.addEventListener('blur', function logBlur() {
+        console.log('Input lost focus');
+        inputField.removeEventListener('blur', logBlur); // Удаляем обработчик, чтобы избежать дублирования
+    });
 }
 
 
