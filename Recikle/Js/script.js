@@ -3,7 +3,8 @@
 // Глобальные переменные
 var eventData;
 var inputField = document.getElementById('inner-input');
-var inputValue = inputField.value; // Начальное значение поля ввода
+var inputValue ;
+//= inputField.value; // Начальное значение поля ввода
 
 // var calculatedNumber = '';
 
@@ -14,7 +15,7 @@ const validChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.', 
 
 const noTypingValues = ['Enter', 'Delete', 'End', 'Home', 'Backspace', 'ArrowLeft', 'ArrowRight', 'F5', 'F12', 'Tab', 'Ctrl',]
 
-const typingValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '+', '-', '*', '/', ',']
+const typingValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '+', '-', '*', '/']
 
 const arithmeticSymbols = ['±', '+', '-', '*', '/', '=', ','];
 
@@ -31,7 +32,7 @@ document.addEventListener('paste', funcEvent);
 // Центральный обработчик событий
 function funcEvent(event) {
     // Проверяем и обновляем состояние глобальных переменных
-    updateGlobalState();
+   // updateGlobalState();
 
     // Проверка на комбинации Ctrl+C, Ctrl+V, Ctrl+X
     if (event.ctrlKey && (event.code === 'KeyC' || event.code === 'KeyX' || event.code === 'KeyV')) {
@@ -48,7 +49,7 @@ function funcEvent(event) {
 
     // Обработка кликов вне контейнера
     if (event.type === 'mousedown') {
-        handleClickOutside(event);
+        handleMissClick(event);
        // handleClickInside(event);
 
     }
@@ -70,8 +71,18 @@ function funcEvent(event) {
     }
 
     // Лог содержимого после обработки событий
-   // checkEvent();
+   checkEvent();
 }
+
+//
+function checkEvent(){
+   console.log ('eventData',eventData);
+   console.log ('inputValue',inputValue);
+   console.log ('inputField',inputField.value);
+}
+
+
+
 
 // Функция для установки фокуса и перемещения курсора в конец строки
 function focusInputField() {
@@ -79,7 +90,6 @@ function focusInputField() {
         inputField.focus();
         setTimeout(function () {
             inputField.setSelectionRange(inputField.value.length, inputField.value.length);
-           // console.log('Focus set, cursor moved to end');
         }, 0);
         
     } 
@@ -88,56 +98,38 @@ function focusInputField() {
     // }
 }
 
-// Функция для обработки кликов вне контейнера
-function handleClickOutside(event) {
-    let calcContainer = document.querySelector('.calc-conteiner');
-    let clickedElement = event.target;
-    console.log('calcContainer:', calcContainer);
-    console.log('clickedElement:', clickedElement);
-
+// Функция для обработки кликов вне кнопок
+function handleMissClick(event) {
+    let clickedElement = event.target.tagName;
     // Проверяем, был ли клик вне контейнера
-    if (calcContainer && !calcContainer.contains(event.target)) {
-       // console.log('Clicked outside of calc-container');
-
+    if ((clickedElement === 'DIV'|| clickedElement === 'HTML'|| clickedElement === 'INPUT' )) {
         if (inputField) {
             // Используем setTimeout для корректной фокусировки
             setTimeout(function () {
-                // Шаг 1: Установить фокус
                 inputField.focus();
-
-                // Шаг 2: Переместить курсор в конец строки
-                setTimeout(function () {
-                    inputField.setSelectionRange(inputField.value.length, inputField.value.length);
-
-                    // Шаг 3: Проверить позицию курсора
-                   // console.log('Cursor set to position after update:', inputField.selectionStart, inputField.selectionEnd);
-
-                    // Шаг 4: Зафиксировать состояние курсора
-                    if (inputField.selectionStart !== inputField.value.length) {
-                       // console.log('Cursor did not update correctly, retrying...');
+                    setTimeout(function () {
                         inputField.setSelectionRange(inputField.value.length, inputField.value.length);
-                    }
-                }, 0);
+                        if (inputField.selectionStart !== inputField.value.length) {
+                            inputField.setSelectionRange(inputField.value.length, inputField.value.length);
+                            }
+                    }, 0);
             }, 0);
-        } 
-        // else {
-        //     console.error('Input field is undefined');
-        // }
+        } else {
+            console.error('Input field is undefined');
+        }
     }
 }
 
-
-
-// Функция для проверки и обновления глобальных переменных
-function updateGlobalState() {
-    inputField = document.getElementById('inner-input'); // Обновляем ссылку на inputField
-    if (inputField) {
-        inputValue = inputField.value; // Обновляем значение поля ввода
-        console.log('Global state updated. Current inputValue:', inputValue);
-    } else {
-        console.error('Input field not found during state update.');
-    }
-}
+// // Функция для проверки и обновления глобальных переменных
+// function updateGlobalState() {
+//     inputField = document.getElementById('inner-input'); // Обновляем ссылку на inputField
+//     if (inputField) {
+//         inputValue = inputField.value; // Обновляем значение поля ввода
+//         console.log('Global state updated. Current inputValue:', inputValue);
+//     } else {
+//         console.error('Input field not found during state update.');
+//     }
+// }
 
 
 
@@ -152,17 +144,17 @@ function handleEvent(event) {
         eventType = 'mousedown';
         eventValue = event.target.getAttribute('data-value');
 
-    } else if (event.target.tagName === 'INPUT' && event.type === 'keydown') {
-        // Обработка клавиатурного события
-        eventType = 'keydown';
-        eventValue = event.key;
-    } else if (event.target.tagName === 'INPUT' && event.type === 'paste'){
-		//event.preventDefault();
-		var clipboardData = event.clipboardData || window.clipboardData;
-		var pastedData = clipboardData.getData('Text');
-		eventType = 'paste';
-        eventValue = pastedData;
-	}
+        } else if (event.target.tagName === 'INPUT' && event.type === 'keydown') {
+            // Обработка клавиатурного события
+            eventType = 'keydown';
+            eventValue = event.key;
+            } else if (event.target.tagName === 'INPUT' && event.type === 'paste'){
+                //event.preventDefault();
+                var clipboardData = event.clipboardData || window.clipboardData;
+                var pastedData = clipboardData.getData('Text');
+                eventType = 'paste';
+                eventValue = pastedData;
+        }
 
     // Всегда возвращаем объект, даже если событие не было обработано
     return {
@@ -176,12 +168,12 @@ function handleEvent(event) {
 // функция отображения переменной на экране 
 
 function outputChanges(eventData) {
-
+    inputValue = inputField.value
 	if (!eventData.outputValue){
 		return;
 	}
 
-	inputValue = inputField.value
+	
 
 	// Получаем позицию курсора
 	let cursorPosition = inputField.selectionStart; // возвращаем позицию курсора
@@ -249,24 +241,7 @@ function blockNonUseKeys(event, validChars) {
     }
 }
 
-// // функция отображения только валидных символов:
 
-// function blockOutputSeviceKeys(event, eventData, noTypingValues){
-// 	if (noTypingValues.includes(eventData.value)){
-
-
-// 	}
-// }
-
-// // функция убирающая двоение изза работы функций и браузера
-
-// function doubleSymbolsDel(eventData){
-
-// 	if (eventData.type === 'keydown'){
-// 		eventData.outputValue = '';
-// 	}
-
-// }
 
 // уборка с экрана информации служебных клавишь калькулятора
 
@@ -284,44 +259,11 @@ function cleanWorckButtonsTyping(event, eventData, typingValues) {
 			eventData.outputValue = '';
 		}
 	}
-
-
-
-        // let innerValue = eventData.value;
-        
-        // // Проверяем, входит ли innerValue в массив допустимых значений
-        // if (!typingValues.includes(innerValue)) {
-        //     // Если не входит, устанавливаем outputValue как пустую строку
-        //     eventData.outputValue = '';
-        // } else {
-        //     // Если входит, оставляем значение как есть
-        //     eventData.outputValue = innerValue;
-        // }
-
 }
-
-
-
-// function cleanWorckButtonsTyping(event, eventData, typingValues) {
-//     if (eventData.type === 'mousedown') {
-//         let innerValue = eventData.value;
-        
-//         // Проверяем, входит ли innerValue в массив допустимых значений
-//         if (!typingValues.includes(innerValue)) {
-//             // Если не входит, устанавливаем outputValue как пустую строку
-//             eventData.outputValue = '';
-//         } else {
-//             // Если входит, оставляем значение как есть
-//             eventData.outputValue = innerValue;
-//         }
-//     } 
-// }
 
 // функция работы знака ','
 function comaCheck(event, eventData) {
-    
     inputValue = inputField.value;
-
 	if (eventData.value === '.' || eventData.value === ','){
 		event.preventDefault();
 		if (inputValue.includes('.') || inputValue.includes(',')){
@@ -331,32 +273,51 @@ function comaCheck(event, eventData) {
 		} else {
 			eventData.outputValue = ',';
 		}
-
 	}
 }
 
 
 // помещаем и фильтруем значения из буфера обмена: 
 
-function bufferValueClean (event, eventData, typingValues) {
+function bufferValueClean(event, eventData, typingValues) {
+    if (eventData.type === 'paste') {
+        event.preventDefault();
 
+        // Получаем значение из буфера обмена
+        var innerValue = eventData.value;
 
-	if(eventData.type === 'paste'){
-		event.preventDefault();
+        // Берем текущее значение на экране
+        var currentDisplayValue = eventData.outputValue || "";
 
-		let innerValue = eventData.value;
-		let chengedValue = '';
-	
-    
-    for (let i = 0; i < innerValue.length; i++) {
-        if (typingValues.includes(innerValue[i])) {
-			chengedValue += innerValue[i];
-        } 
-		
+        // Проверяем, есть ли запятая уже в текущем отображаемом значении
+        var hasComma = currentDisplayValue.includes(',');
+
+        // Строка для формирования отфильтрованного значения
+        var changedValue = currentDisplayValue;
+
+        // Проходим по каждому символу из буфера обмена
+        for (var i = 0; i < innerValue.length; i++) {
+            var char = innerValue[i];
+
+            // Если символ разрешен
+            if (typingValues.includes(char)) {
+                // Если символ — это запятая
+                if (char === ',') {
+                    // Добавляем ее только если запятая еще не была добавлена
+                    if (!hasComma) {
+                        changedValue += char;
+                        hasComma = true; // Устанавливаем флаг, что запятая уже есть
+                    }
+                } else {
+                    // Добавляем любые другие разрешенные символы
+                    changedValue += char;
+                }
+            }
+        }
+
+        // Обновляем значение в eventData.outputValue
+        eventData.outputValue = changedValue;
     }
-	eventData.outputValue = chengedValue;
-
-}
 }
 
 
@@ -427,6 +388,56 @@ function convertCommaToDot(inputValue) {
     } 
 
 }
+
+// // функция отображения только валидных символов:
+
+        // function blockOutputSeviceKeys(event, eventData, noTypingValues){
+        // 	if (noTypingValues.includes(eventData.value)){
+
+
+        // 	}
+        // }
+
+        // // функция убирающая двоение изза работы функций и браузера
+
+        // function doubleSymbolsDel(eventData){
+
+        // 	if (eventData.type === 'keydown'){
+        // 		eventData.outputValue = '';
+        // 	}
+
+        // }
+
+
+
+        // let innerValue = eventData.value;
+        
+        // // Проверяем, входит ли innerValue в массив допустимых значений
+        // if (!typingValues.includes(innerValue)) {
+        //     // Если не входит, устанавливаем outputValue как пустую строку
+        //     eventData.outputValue = '';
+        // } else {
+        //     // Если входит, оставляем значение как есть
+        //     eventData.outputValue = innerValue;
+        // }
+
+// function cleanWorckButtonsTyping(event, eventData, typingValues) {
+//     if (eventData.type === 'mousedown') {
+//         let innerValue = eventData.value;
+        
+//         // Проверяем, входит ли innerValue в массив допустимых значений
+//         if (!typingValues.includes(innerValue)) {
+//             // Если не входит, устанавливаем outputValue как пустую строку
+//             eventData.outputValue = '';
+//         } else {
+//             // Если входит, оставляем значение как есть
+//             eventData.outputValue = innerValue;
+//         }
+//     } 
+// }
+
+
+
 
 
 	//if (noTypingValues.includes(eventData.value)){
