@@ -3,7 +3,7 @@
 // Глобальные переменные
 var eventData;
 var inputField = document.getElementById('inner-input');
-var inputValue ;
+var inputValue;
 //= inputField.value; // Начальное значение поля ввода
 
 // var calculatedNumber = '';
@@ -29,62 +29,10 @@ document.addEventListener('keydown', funcEvent);
 document.addEventListener('paste', funcEvent);
 
 
-// Центральный обработчик событий
-function funcEvent(event) {
-    // Проверяем и обновляем состояние глобальных переменных
-   // updateGlobalState();
-
-    // Проверка на комбинации Ctrl+C, Ctrl+V, Ctrl+X
-    if (event.ctrlKey && (event.code === 'KeyC' || event.code === 'KeyX' || event.code === 'KeyV')) {
-        console.log('Ctrl+C, Ctrl+X или Ctrl+V нажаты, событие игнорируется.');
-        return;
-    }
-
-    // Обработка события вставки
-    if (event.type === 'paste') {
-        eventData = handleEvent(event);
-        normalize(event);
-        outputChanges(eventData);
-    }
-
-    // Обработка кликов вне контейнера
-    if (event.type === 'mousedown') {
-        handleMissClick(event);
-       // handleClickInside(event);
-
-    }
-
-    // Обработка нажатия клавиш в поле ввода
-    if (event.target.tagName === 'INPUT' && event.type === 'keydown') {
-        eventData = handleEvent(event);
-        normalize(event);
-        arithmetic(event, eventData, arithmeticSymbols);
-        outputChanges(eventData);
-    }
-
-    // Обработка кликов на кнопках
-    if (event.target.tagName === 'BUTTON' && event.type === 'mousedown') {
-        eventData = handleEvent(event);
-        normalize(event);
-        arithmetic(event, eventData, arithmeticSymbols);
-        outputChanges(eventData);
-    }
-
-    // Лог содержимого после обработки событий
-   checkEvent();
-}
-
-//
-function checkEvent(){
-   console.log ('eventData',eventData);
-   console.log ('inputValue',inputValue);
-   console.log ('inputField',inputField.value);
-}
+//                                          ==== Cursor Management Functions ====
 
 
-
-
-// Функция для установки фокуса и перемещения курсора в конец строки
+// Функция для установки фокуса и перемещения курсора в конец строки при старте
 function focusInputField() {
     if (inputField) {
         inputField.focus();
@@ -93,12 +41,9 @@ function focusInputField() {
         }, 0);
         
     } 
-    // else {
-    //     console.error('Input field not found!');
-    // }
 }
 
-// Функция для обработки кликов вне кнопок
+// Функция для обработки кликов вне кнопок калькулятора
 function handleMissClick(event) {
     let clickedElement = event.target.tagName;
     // Проверяем, был ли клик вне контейнера
@@ -120,16 +65,67 @@ function handleMissClick(event) {
     }
 }
 
-// // Функция для проверки и обновления глобальных переменных
-// function updateGlobalState() {
-//     inputField = document.getElementById('inner-input'); // Обновляем ссылку на inputField
-//     if (inputField) {
-//         inputValue = inputField.value; // Обновляем значение поля ввода
-//         console.log('Global state updated. Current inputValue:', inputValue);
-//     } else {
-//         console.error('Input field not found during state update.');
-//     }
-// }
+
+
+//                                          ==== Events Handling ====
+
+
+
+
+// Центральный обработчик событий
+function funcEvent(event) {
+    // Обновляем глобальные переменные
+    updateGlobalState();
+
+    // Проверка на комбинации Ctrl+C, Ctrl+V, Ctrl+X
+    if (event.ctrlKey && (event.code === 'KeyC' || event.code === 'KeyX' || event.code === 'KeyV')) {
+        console.log('Ctrl+C, Ctrl+X или Ctrl+V нажаты, событие игнорируется.');
+        return;
+    }
+
+    // Обработка события вставки
+    if (event.type === 'paste') {
+        eventData = handleEvent(event);
+        normalize(event);
+        outputChanges(eventData);
+    }
+
+    // Обработка кликов вне контейнера
+    if (event.type === 'mousedown') {
+        handleMissClick(event);
+    }
+
+    // Обработка нажатия клавиш в поле ввода
+    if (event.target.tagName === 'INPUT' && event.type === 'keydown') {
+        eventData = handleEvent(event);
+        normalize(event);
+        arithmetic(event, eventData, arithmeticSymbols);
+        outputChanges(eventData);
+    }
+
+    // Обработка кликов на кнопках
+    if (event.target.tagName === 'BUTTON' && event.type === 'mousedown') {
+        eventData = handleEvent(event);
+        normalize(event);
+        arithmetic(event, eventData, arithmeticSymbols);
+        outputChanges(eventData);
+    }
+
+    // Лог содержимого после обработки событий
+    checkEvent();
+}
+
+//отладочная функция переставляется в зависимости от необходимости
+function checkEvent(){
+   console.log ('eventData',eventData);
+   console.log ('inputValue',inputValue);
+   console.log ('inputField',inputField.value);
+}
+
+// Функция для обновления глобальных переменных
+function updateGlobalState() {
+    inputField = document.getElementById('inner-input'); 
+}
 
 
 
@@ -149,7 +145,6 @@ function handleEvent(event) {
             eventType = 'keydown';
             eventValue = event.key;
             } else if (event.target.tagName === 'INPUT' && event.type === 'paste'){
-                //event.preventDefault();
                 var clipboardData = event.clipboardData || window.clipboardData;
                 var pastedData = clipboardData.getData('Text');
                 eventType = 'paste';
@@ -166,27 +161,23 @@ function handleEvent(event) {
 }
 
 // функция отображения переменной на экране 
-
 function outputChanges(eventData) {
-    inputValue = inputField.value
+  //  inputValue = inputField.value
 	if (!eventData.outputValue){
 		return;
 	}
-
-	
-
 	// Получаем позицию курсора
 	let cursorPosition = inputField.selectionStart; // возвращаем позицию курсора
-	let beforeCursor = inputValue.substring(0, cursorPosition); //записываем подстроку до курсора
-	let afterCursor = inputValue.substring(cursorPosition); //записываем подстроку после курсора
+	let beforeCursor = inputField.value.substring(0, cursorPosition); //записываем подстроку до курсора
+	let afterCursor = inputField.value.substring(cursorPosition); //записываем подстроку после курсора
 	
-		if (!inputValue) {
+		if (!inputField.value) {
 			inputField.value = eventData.outputValue;
 			return
-		} else if (inputValue === 0) {
+		} else if (inputField.value === 0) {
 			inputField.value = eventData.outputValue;
 			return
-		} else if (inputValue){
+		} else if (inputField.value){
 			inputField.value = beforeCursor + eventData.outputValue + afterCursor;
 		}
 
@@ -197,7 +188,7 @@ function outputChanges(eventData) {
 }
 
 
-
+//                                          ==== functions that reduce values ​​to acceptable ====
 function normalize (event){
 //убираем муссорные нажатия
 blockNonUseKeys(event, validChars);
@@ -208,7 +199,7 @@ blockNonUseKeys(event, validChars);
 		// doubleSymbolsDel(eventData);
 
 		// уборка с экрана информации служебных клавишь калькулятора
-		cleanWorckButtonsTyping (event, eventData, typingValues)
+		cleanWorckButtonsTyping (eventData, typingValues)
 
 		// обрабатываем замену запятой
 		comaCheck(event, eventData);
@@ -245,7 +236,7 @@ function blockNonUseKeys(event, validChars) {
 
 // уборка с экрана информации служебных клавишь калькулятора
 
-function cleanWorckButtonsTyping(event, eventData, typingValues) {
+function cleanWorckButtonsTyping(eventData, typingValues) {
     
 	if (!typingValues.includes(eventData.value)) {
 		eventData.outputValue += '';
@@ -263,12 +254,12 @@ function cleanWorckButtonsTyping(event, eventData, typingValues) {
 
 // функция работы знака ','
 function comaCheck(event, eventData) {
-    inputValue = inputField.value;
+   // inputValue = inputField.value;
 	if (eventData.value === '.' || eventData.value === ','){
 		event.preventDefault();
-		if (inputValue.includes('.') || inputValue.includes(',')){
+		if (inputField.value.includes('.') || inputField.value.includes(',')){
 			eventData.outputValue = '';
-		} else if (!inputValue || inputValue === ''){
+		} else if (!inputField.value || inputField.value === ''){
 			eventData.outputValue = '0,';
 		} else {
 			eventData.outputValue = ',';
@@ -327,19 +318,75 @@ function nullOutput (event, eventData) {
 
     inputValue = inputField.value;
 
-	if ((inputValue === 0 || inputValue === '0') && (eventData.value === 0 || eventData.value =='0')) {
+	if ((inputValue === 0 || inputValue === '0') && (eventData.value === 0 || eventData.value ==='0')) {
 		event.preventDefault();
 		eventData.outputValue = '';
 	} 
-	else if ((inputValue == '0,') && (eventData.value === 0 || eventData.value =='0')){
+	else if ((inputValue == '0,') && (eventData.value === 0 || eventData.value ==='0')){
+        event.preventDefault();
 		eventData.outputValue = eventData.value
 	}
 
 }
 
- // функция проверящая наличие арифметических значений и если они есть в средине числа выполняющая их а также работающая с запятой.
+//                                          ==== calculator button functions ====
 
-function arithmetic(event, eventData, arithmeticSymbols) {
+// делаем значение отрицательным
+
+
+
+
+
+
+
+
+
+//                                          ==== arithmetic functions ====
+
+ // 
+
+
+// знак простая орифметика '+ - * /'
+function arifmeticsSymbols(event, arithmeticSymbols) {
+	
+    let inputField = inputField.value;
+    let eventValue = eventData.value;
+    let digits = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+    let arifmeticsSymbols = ('+', '-', '*', '/');
+    let equals = ('=');
+    let squareRoot = ('√');
+    let percentage = ('%');
+    let plusMinus = ('±');
+    let serviceKeys = ('MC', 'MR', 'MS', 'M+','M-', 'CE', 'C', '←');
+
+    
+    // for (let i = 0; i < inputValue.lenght, i++) {
+
+    // }
+
+	
+	// if (!arithmeticSymbols.includes(inputValue)) {
+	// 	eventData.calcNumber = inputValue + eventData.value;
+	// } else if (arithmeticSymbols.includes(inputValue)) {
+		
+	// }
+
+}
+
+
+function negativeMeaning(eventData) {
+	
+	// inputValue = inputField.value;
+	
+	if (eventData.value === '±') {
+		
+		inputField.value = '';
+        eventData.outputValue = inputValue * (-1);
+	} 
+
+}
+
+ function arithmetic(event, eventData, arithmeticSymbols) {
 
 	inputValue = inputField.value; 
 
@@ -355,27 +402,9 @@ function arithmetic(event, eventData, arithmeticSymbols) {
 				// eventData.calcNumber = inputField.value + eventData.value;
 				// eventData.outputValue = inputField.value + eventData.value;
 			}
-
 		}
-
 	}
-		negativeMeaning(event, eventData)
-	
-
-}
-
-// делаем значение отрицательным
-
-function negativeMeaning(event, eventData) {
-	
-	// inputValue = inputField.value;
-	
-	if (eventData.value === '±') {
-		
-		inputField.value = '';
-        eventData.outputValue = inputValue * (-1);
-	} 
-
+		negativeMeaning(eventData)
 }
 
 // функция возвращающая точку для вычислений. 
@@ -387,6 +416,14 @@ function convertCommaToDot(inputValue) {
 		return comaFree;
     } 
 
+}
+
+
+
+// работа клавиатуры
+
+function keybord() {
+	
 }
 
 // // функция отображения только валидных символов:
@@ -436,10 +473,6 @@ function convertCommaToDot(inputValue) {
 //     } 
 // }
 
-
-
-
-
 	//if (noTypingValues.includes(eventData.value)){
 
 	//если в значении не содержалось знаков то добавляем знак и создаем обчисляемое значение
@@ -484,12 +517,6 @@ function convertCommaToDot(inputValue) {
 // }
 	
 
-
-
-
-
-
-
 // // функция возвращающая запятую для отображения. 
 // function convertDotToComma() {
 
@@ -500,34 +527,6 @@ function convertCommaToDot(inputValue) {
 //     }
 
 // }
-
-
-
-
-
-
-
-
-
-
-
-// знак простая орифметика '+ - * /'
-function arifmeticsSymbols(event, arithmeticSymbols) {
-	inputValue = inputField.value;
-	
-	// if (!arithmeticSymbols.includes(inputValue)) {
-	// 	eventData.calcNumber = inputValue + eventData.value;
-	// } else if (arithmeticSymbols.includes(inputValue)) {
-		
-	// }
-
-}
-
-// работа клавиатуры
-
-function keybord() {
-	
-}
 
 
 // знак плюс '='
