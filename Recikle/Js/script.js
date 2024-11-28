@@ -99,7 +99,8 @@ function funcEvent(event) {
     if (event.target.tagName === 'INPUT' && event.type === 'keydown') {
         eventData = handleEvent(event);
         normalize(event);
-        arithmetic(event, eventData, arithmeticSymbols);
+        arifmeticsSymbols(event);
+       // arithmetic(event, eventData, arithmeticSymbols);
         outputChanges(eventData);
     }
 
@@ -107,18 +108,19 @@ function funcEvent(event) {
     if (event.target.tagName === 'BUTTON' && event.type === 'mousedown') {
         eventData = handleEvent(event);
         normalize(event);
-        arithmetic(event, eventData, arithmeticSymbols);
+        arifmeticsSymbols(event);
+       // arithmetic(event, eventData, arithmeticSymbols);
         outputChanges(eventData);
     }
 
     // Лог содержимого после обработки событий
-    checkEvent();
+   checkEvent();
 }
 
 //отладочная функция переставляется в зависимости от необходимости
 function checkEvent(){
    console.log ('eventData',eventData);
-   console.log ('inputValue',inputValue);
+   //console.log ('inputValue',inputValue);
    console.log ('inputField',inputField.value);
 }
 
@@ -347,24 +349,63 @@ function nullOutput (event, eventData) {
 
 
 // знак простая орифметика '+ - * /'
-function arifmeticsSymbols(event, arithmeticSymbols) {
+function arifmeticsSymbols(event) {
 	
-    let inputField = inputField.value;
+    let inputFieldValue = inputField.value;
     let eventValue = eventData.value;
-    let digits = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-    let arifmeticsSymbols = ('+', '-', '*', '/');
-    let equals = ('=');
-    let squareRoot = ('√');
-    let percentage = ('%');
-    let plusMinus = ('±');
-    let serviceKeys = ('MC', 'MR', 'MS', 'M+','M-', 'CE', 'C', '←');
+    let inputFieldValueLenght = inputFieldValue.length;
+
+    let digits = [',', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    let arifmeticsSymbols = ['+', '-', '*', '/'];
 
     
-    // for (let i = 0; i < inputValue.lenght, i++) {
 
+    for (let i = 0; i < digits.length; i++) {
+        if (digits[i] === eventValue) {
+            console.log('past', eventValue);
+            return; // Завершаем функцию при первом совпадении
+        }
+    }
+    console.log('past-nischt', eventValue);
+
+
+
+    for  (let j = 0; j < arifmeticsSymbols.length; j++ ){
+        
+    }
+        
+
+    
+    // // Проходим по массиву digits
+    // for (let i = 0; i < digits.length; i++) {
+    //     // Если символ найден в массиве digits
+    //     if (digits[i] === eventValue) {
+    //         console.log('past', digits[i]);
+    //         return; // Завершаем функцию
+    //     }
     // }
 
-	
+    // // Если символ не найден в digits, можно продолжить ветвление
+    // console.log('past-nischt', eventValue);
+
+
+
+
+
+
+    let inputChars = inputFieldValue.split('');
+
+    let equals = ['='];
+    let squareRoot = ['√'];
+    let percentage = ['%'];
+    let plusMinus = ['±'];
+    let serviceKeys = ['MC', 'MR', 'MS', 'M+','M-', 'CE', 'C', '←'];
+
+    console.log ('eventValue:',eventValue);
+    console.log ('inputFieldValue:',inputFieldValue);
+    console.log ('inputFieldValueLenght:',inputFieldValueLenght);
+
+	console.log ('inputChars:',inputChars);
 	// if (!arithmeticSymbols.includes(inputValue)) {
 	// 	eventData.calcNumber = inputValue + eventData.value;
 	// } else if (arithmeticSymbols.includes(inputValue)) {
