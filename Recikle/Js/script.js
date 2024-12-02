@@ -371,7 +371,7 @@ function arifmeticsSymbols(event) {
 
 
     for  (let j = 0; j < arifmeticsSymbols.length; j++ ){
-        
+
     }
         
 
@@ -458,7 +458,6 @@ function convertCommaToDot(inputValue) {
     } 
 
 }
-
 
 
 // работа клавиатуры
