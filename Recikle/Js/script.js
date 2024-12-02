@@ -99,7 +99,7 @@ function funcEvent(event) {
     if (event.target.tagName === 'INPUT' && event.type === 'keydown') {
         eventData = handleEvent(event);
         normalize(event);
-        arifmeticsSymbols(event);
+       // arifmeticsSymbols(event);
        // arithmetic(event, eventData, arithmeticSymbols);
         outputChanges(eventData);
     }
@@ -108,7 +108,7 @@ function funcEvent(event) {
     if (event.target.tagName === 'BUTTON' && event.type === 'mousedown') {
         eventData = handleEvent(event);
         normalize(event);
-        arifmeticsSymbols(event);
+       // arifmeticsSymbols(event);
        // arithmetic(event, eventData, arithmeticSymbols);
         outputChanges(eventData);
     }
