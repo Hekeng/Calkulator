@@ -1,3 +1,442 @@
+// 	// //задача со кавычками
+
+// // let str = """;
+
+// // function validQuotes(quotes) {
+  
+// //   let mass = quotes.split('');
+// //   let massQuotes = [];
+// //   let stack = [];
+
+// //   for (let i = 0; i < mass.length; i++) {
+// //     if (mass[i] === "'" || mass[i] === '"') {
+// //       massQuotes.push(mass[i])
+// //     }
+// //   }
+
+// //   for (let j = 0; j < massQuotes.length; j++) {
+
+// //     if (stack.length === 0) {
+// //       stack.push(massQuotes[j]);
+// //       console.log("Записан символ", `${massQuotes[j]}`)
+// //       continue;
+// //     } 
+    
+// //     if (stack[stack.length - 1] === massQuotes[j]) {
+// //       stack.pop();
+// //     }  else {
+// //       return false
+// //     }
+// //   }
+
+// //   if (stack.length > 0) {
+// //     return false;
+// //   }return true;
+
+// // }
+
+// // console.log (validQuotes(str))
+
+// //   const matchingQuotes = {
+// //     '"': '"',
+// //     "'": "'"
+// //   };
+
+//   //  if (braces === "") {
+//   //   return true;
+//   // }
+//   // if (!"({[".includes(arr[0]) || !")}]".includes(arr[arr.length - 1]))  {
+//   //   return false;
+//   // } 
+
+
+// // //Задачка с векторами
+// // function collinearity(x1,y1, x2,y2) {
+
+ 
+// //     // Вектор (0, 0) коллинеарен любому
+// //     if ((x1 === 0 && y1 === 0) || (x2 === 0 && y2 === 0)) {
+// //       return true;
+// //     }
+  
+// //     // Проверка вертикальных и горизонтальных векторов
+// //     if (x1 === 0 && x2 === 0) {
+// //       return true; // Оба вектора на оси Y
+// //     }
+// //     if (y1 === 0 && y2 === 0) {
+// //       return true; // Оба вектора на оси X
+// //     }
+  
+// //     // Общая проверка пропорциональности через кросс-произведение
+// //     return x1 * y2 === x2 * y1;
+// //   }
+  
+// //   //console.log("сравнение вектора:", `${i}`, vector1[i]);
+// //   //console.log("Полный массив:", vector1);
+
+
+
+// // console.log(collinearity(-12,0, -24,0));
+
+
+// //console.log(collinearity( x1,y1, x2,y2 ));
+
+// // let d = 5; 
+
+// // function rentalCarCost(d) {
+
+// // if (d<3) {
+// //   d = d *40;
+// // }
+
+// // if (d >=3 && d <7){
+// //   d = d*40 - 20;
+// // }
+// // if (d>=7)
+// //   d = d*40 - 50;
+
+// //   return d;
+// // }
+
+// // const rentalCarCost = (d) => 
+
+// // d < 3 ? d *40:
+// // d < 7 ? d*40 - 20:
+// // d*40 - 50
+
+
+// // rentalCarCost(d);
+
+// // console.log(rentalCarCost(d));
+
+
+// // //for 2, 1, [0,1,2,3,4] return [ [0,1], [1,2], [2,3], [3,4] ]
+// // // for 2, 2, [0,1,2,3,4] return [ [0,1], [2,3] ]
+// // // for 2, 3, [0,1,2,3,4] return [ [0,1], [3,4] ]
+
+// // let length = 0; // длина каждого окна (подсписка). 
+// // let offset = 1; // шаг, с которым окно перемещается. Всегда положительное число.
+// // let list = [0,1,2];
+
+// // function window(length, offset, list) { 
+// //   let result = [];
+  
+// //   // Если длина окна равна 0, нужно создать пустые массивы для каждого шага
+// //   if (length === 0) {
+// //     for (let i = 0; i <= list.length; i += offset) {
+// //       result.push([]);
+// //     }
+// //     return result;
+// //   }
+
+// //   let start = 0;
+// //   let end = 0;
+
+// //   for (let i = 0; i < list.length; i++) {
+// //     if (i === 0) {
+// //       start = i;
+// //       end = i + length;
+// //       if (end <= list.length) { // Проверяем, достаточно ли элементов
+// //         result.push(list.slice(start, end));
+// //       }
+// //     } else if (i >= 1) {
+// //       start += offset;
+// //       end += offset;
+// //       if (end <= list.length) { // Проверяем, достаточно ли элементов
+// //         result.push(list.slice(start, end));
+// //       }
+// //     }
+// //   }
+
+// //   return result;
+// // }
+
+// // let result = windows(length,offset,list);
+
+// // console.log(result);
+
+// //камень ножницы бумага
+// // let player1 = 'rock';
+// // let player2 = 'rock';
+
+// // const rps = (p1, p2) => {
+  
+// //   let str = p1+','+p2;
+// //   console.log(str);
+
+// //   if (p1===p2) {
+// //     return 'Draw!'
+// //   }
+
+// //   switch (str) {
+// //     case 'scissors,paper':
+// //       return 'Player 1 won!';
+// //     case 'rock,scissors':
+// //       return 'Player 1 won!';
+// //     case 'paper,rock':
+// //       return 'Player 1 won!';
+// //     default:
+// //       return 'Player 2 won!';
+// //   }
+
+// // };
+
+// // let result = rps(player1, player2);
+
+// // console.log(result);
+
+
+
+// // //задача про ковбоя
+// // let arr =  ["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"];
+
+// // function dirReduc(str){
+
+// //   let north = 'NORTH';
+// //   let south = 'SOUTH';
+// //   let east = 'EAST';
+// //   let west = 'WEST';
+
+// //   let stack = [];
+
+// //   const noValidPairs = {
+// //     'NORTH':'SOUTH',
+// //     'SOUTH':'NORTH',
+// //     'EAST':'WEST',
+// //     'WEST':'EAST'
+// //   }
+
+// //   let perem = pairs.NORTH;
+
+
+
+// // return perem;
+// // }
+
+// // let result = dirReduc(arr);
+
+// // console.log(result);  
+
+
+
+
+
+// // let result = validBraces(str);
+// // console.log(result);  // [1, 2, 1, 1, 3, 1, 0, 0, 0, 0]
+
+// // let number = [1, 2, 0, 1, 0, 1, 0, 3, 0, 1];
+
+// // function moveZeros(arr) {
+// //   let neuArr = [];
+
+// //   for (let i = 0; i < arr.length; i++) {
+// //     if (arr[i] !== 0) {
+// //       neuArr.push(arr[i]);
+// //     }
+// //   }
+
+// //   for (let i = 0; i < arr.length; i++) {
+// //     if (arr[i] === 0) {
+// //       neuArr.push(0);
+// //     }
+// //   }
+
+// //   return neuArr;
+// // }
+
+// // let result = moveZeros(number);
+// // console.log(result);  // [1, 2, 1, 1, 3, 1, 0, 0, 0, 0]
+
+
+// // [1, 2, 1, 1, 3, 1, 0, 0, 0, 0]
+// // let games = ["1:1","2:2","3:3","4:4","2:2","3:3","4:4","3:3","4:4","4:4"];
+
+// // function points(games) {
+
+// //   let points = 0;
+  
+// //   for (let i = 0; i < games.length; i++) {
+    
+// //     let element = games[i].split(":");
+// //     let myTeam = parseInt(element[0], 10);
+// //     let opositTeam = parseInt(element[1], 10);
+    
+
+// //       if (myTeam > opositTeam){points += 3;} else
+// //       if (myTeam < opositTeam){points += 0;} else
+// //       {points += 1;} 
+
+
+// //   }
+// //   return points;
+// // }
+
+
+// // let result =  points(games);
+
+// // console.log(result); 
+
+
+//   // probe = hero (6, 4);
+//   //console.log(stringToNumber('1234'));
+
+
+
+//   // function hero (bullets, dragons) {
+  
+
+//   //   if (bullets >= dragons*2) {
+//   //    return true;
+//   //   } return false;
+  
+//   // }
+
+//   // let probe = 0;
+
+//   // function bmi(weight, height) {
+//   //     let perem = '';
+//   //     let quterHeight = 0;
+  
+//   //     quterHeight = (height * height);
+//   //     perem = (weight / quterHeight);
+  
+//   //     if (perem <= 18.5) {return "Underweight"};
+  
+//   //     if (perem <= 25.0) {return "Normal"};
+  
+//   //     if (perem <= 30.0) {return "Overweight"};
+  
+//   //     if (perem > 30) {return "Obese"};
+  
+//   // }
+  
+  
+//   //   probe = bmi(105, 1.75);
+
+// // let probe = [];
+
+
+// // function countBy(x, n) {
+// //     let arrZ = [];
+
+// //     for (let i = 1; i <= n; i++) {
+
+// //         arrZ.push(x * i);
+// //         console.log (arrZ);
+// //     }
+
+
+// //     return arrZ;
+// //   }
+
+// //   probe = countBy(2, 5);
+// //   console.log(probe)
+
+
+
+
+
+
+
+
+
+// // Input: [1, 5.2, 4, 0, -1]
+// // Output: 9.2
+
+// // Input: []
+// // Output: 0
+
+// // Input: [-2.398]
+// // Output: -2.398
+
+
+// // let inputArr = [1, 5.2, 4, 0, -1];
+// // let probe = 0;
+
+// // function sum (anyArr) {
+    
+// //     let summa = 0;
+
+
+// //     for (let i = 0; i < anyArr.length; i++){
+
+// //         if (anyArr[0] == 0 || (isNaN(anyArr[i]))) {
+// //             summa = 0;
+// //             return summa; 
+// //         } else {
+// //     summa += anyArr[i];
+   
+// //     }}
+
+// //     return summa;
+// // }
+
+// // probe = sum (inputArr);
+
+// // console.log (probe);
+
+
+
+
+
+
+
+
+
+
+// // 'world'  =>  'dlrow'
+// // 'word'   =>  'drow'
+
+// // let variable = 'world';
+// // let proba = '';
+
+// // function solution(str){
+// // 	let arr = str.split('');
+// //     let reverseString='';
+// //   for (let i = arr.length -1; i >= 0; i--) {
+// //     reverseString += (arr[i]);
+// // }
+// //   return reverseString;
+// // }
+// // proba = solution(variable);
+// // console.log(proba);
+
+
+
+
+
+
+
+// // // smash(words) # returns "hello world this is great"
+
+// // // let words = ['hello', 'world', 'this', 'is', 'great'];
+// // // let proba ='';
+
+// // // function smash (w) {
+  
+// // //   let wordsString = '';
+
+// // //   for (let i = 0; i < w.length; i++) {
+	
+// // // 	if (i > 0) {
+// // // 		wordsString += ' '+(w[i]);
+// // // 	} else {wordsString += (w[i]);}
+
+// // //   }
+
+// // //   return wordsString;
+// // // };
+// // // proba = (smash (words));
+
+// // // console.log (proba);
+    
+    
+    
+    
+    
+    
+    
+    
 	// document.getElementById('inner-input').focus();
 
 // глобальные переменные
